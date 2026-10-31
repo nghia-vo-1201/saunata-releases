@@ -10,6 +10,8 @@ code before the real machine exists. It was made at HAMK for PLC courses and for
 * Models: **block diagrams** and **acausal (equation-based) physical networks**
 * Runs on Windows 10 / 11 and needs **no administrator rights, no Python and no TwinCAT**
 * User interface in **English and Finnish**
+* An AI model on your own PC can drive it to test PLC code (new in 3.2)
+* **Free** to use, change and build on ([Apache 2.0](LICENSE)), as long as you credit the author ([NOTICE](NOTICE))
 
 **[⬇ Download the latest version](https://github.com/nghia-vo-1201/saunata-releases/releases/latest)**:
 get `Saunata-<version>-Setup.exe` from the release's *Assets*.
@@ -59,6 +61,20 @@ get `Saunata-<version>-Setup.exe` from the release's *Assets*.
   the project file.
 * A built-in **MQTT test broker** is included for lessons and tests.
 
+### Let an AI model test your PLC code (new in 3.2)
+*Tools → AI connector...* lets an AI model or a script **on the same PC** use Saunata the way you do: open a plant
+model, start and stop the simulation, read and write PLC signals, press the machine's buttons, take a screenshot and
+build a model block by block. You watch it happen in the window. A typical loop: the model writes the PLC code,
+Saunata runs the plant against it and reports what the plant did.
+* AI clients that speak **MCP** connect through `Saunata-connect.exe` (in the installation folder). Local scripts
+  can send JSON to `http://127.0.0.1:<port>`.
+* **Nothing is opened to the network.** The connector is off until you switch it on. It answers only on 127.0.0.1
+  and only with the token shown in the dialog. It also works with no internet connection.
+* A **real PLC stays read-only** for the AI unless you allow writing. The built-in mock PLC can always be used.
+* **Test scenarios** (`*.sntest`): open a model, set signals, wait for something to happen, check the result.
+  `Saunata-connect.exe run my_test.sntest` runs one without a window, as fast as the PC can, and exits with 0 or 1.
+  That makes it easy to run after every change to the PLC program.
+
 ### Learn it: Saunata Academy
 A built-in course (*Help → Saunata Academy*) takes you from beginner to advanced level, with lessons, quizzes, labs
 and certificates, in English and Finnish.
@@ -91,6 +107,7 @@ MQTT broker for MQTT connections. Simulations without a PLC need no other softwa
 | The ADS coupling without TwinCAT | Start menu → *Saunata mock PLC*, then *File → Open example → Demo Mock PLC*, press **F7** (connect) and **F5** |
 | A physical network | Open *Physical DC Motor and RC* or *Thermal Room Heating*, press **F5** |
 | MQTT | *MQTT → Test broker... → Start*, open *MQTT Tank Demo*, press **F5** |
+| The AI connector | *Tools → AI connector...*, tick *Let an AI model drive this window*, then paste the settings shown into your AI client |
 | A real TwinCAT PLC | *PLC → Connection...*: enter the PLC's AMS Net ID and port 851, press *Test* (step-by-step in the user guide, chapter "Connecting to TwinCAT") |
 
 Other examples: conveyor sorting station, pneumatic station, hydraulic press, 4-floor elevator, escalator, door and
@@ -113,6 +130,29 @@ laitos näkyy animoituna 2D- ja 3D-näkymänä.
 5. Ohjeet ohjelmassa: **F1**. Saunata Academy -kurssi löytyy Ohje-valikosta.
 
 Pythonia, TwinCATia tai järjestelmänvalvojan oikeuksia ei tarvita.
+
+Uutta versiossa 3.2: *Työkalut → Tekoälyliitäntä...* antaa tällä koneella toimivan tekoälymallin testata
+PLC-ohjelmaa Saunatan avulla. Mitään ei avata verkkoon.
+
+Saunata on ilmainen ja sitä saa muokata ja käyttää omien tuotteiden pohjana (Apache License 2.0). Ehto: tekijä
+(Nghia Vo) ja Saunata on mainittava tuotteessa, ks. [NOTICE](NOTICE).
+
+---
+
+## Licence
+
+Saunata is **free**. Anyone may install it, use it for any purpose, change it and build new products on it, including
+commercial ones, under the **[Apache License 2.0](LICENSE)**.
+
+**The one condition is credit.** If you distribute Saunata, or a product that contains or is derived from it, you
+must keep the [NOTICE](NOTICE) file and show its attribution where your product shows such notices, for example in
+the About box, the documentation or the credits:
+
+> This product includes software developed by Nghia Vo (Saunata) - https://github.com/nghia-vo-1201/saunata-releases
+
+Changed files must say that they were changed. The software comes without warranty. Third-party components shipped
+with Saunata (Qt for Python, pyqtgraph, NumPy, FMPy, Eclipse Paho MQTT) keep their own licences; the NOTICE file
+lists them.
 
 ---
 
